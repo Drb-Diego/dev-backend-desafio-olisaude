@@ -1,4 +1,4 @@
-import { IsDateString, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsDateString, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 enum Gender {
   male = 'male',
@@ -12,6 +12,7 @@ type UserSickness = {
 
 export class CreateUserDTO {
   @IsNotEmpty()
+  @IsString()
   name: string;
 
   @IsNotEmpty()
