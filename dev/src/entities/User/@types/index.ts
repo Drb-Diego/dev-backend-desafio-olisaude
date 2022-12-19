@@ -5,7 +5,7 @@ enum Gender {
   female = 'female',
 }
 
-type UserSickness = {
+export type UserSickness = {
   name: string;
   degree: number;
 };
