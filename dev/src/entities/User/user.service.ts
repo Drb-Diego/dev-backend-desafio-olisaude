@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 
-import { CreateUserDTO } from './@types';
+import { BodyEditUserDTO, CreateUserDTO } from './@types';
 
 import { UserRepository } from './user.repository';
 import { SicknessService } from '../Sickness/sickness.service';
@@ -13,19 +13,19 @@ export class UserService {
   ) {}
 
   async create(createUserBody: CreateUserDTO) {
-    const { name, gender, birthDate, userSickness } = createUserBody;
+    const { name, gender, birthDate, userSicknesses } = createUserBody;
 
     const userCreated = await this.userRepository.create({
       name,
       gender,
       birthDate,
-      userSickness,
+      userSicknesses,
     });
 
-    if (userSickness) {
+    if (userSicknesses) {
       const sicknessCreated = await this.sicknessService.create({
         user: { ...userCreated },
-        userSickness,
+        userSicknesses,
       });
 
       return {
@@ -73,5 +73,17 @@ export class UserService {
     const sicknessFinded = await this.sicknessService.findOne(userId);
 
     return { user: userFinded, userSickness: sicknessFinded };
+  }
+
+  async edit(userId: string, payload: BodyEditUserDTO) {
+    const { name, gender, birthDate } = payload;
+
+    const userEdited = await this.userRepository.edit(userId, {
+      name,
+      gender,
+      birthDate,
+    });
+
+    return userEdited;
   }
 }

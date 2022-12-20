@@ -8,14 +8,14 @@ export class CreateSicknessDTO {
 
   @IsNotEmpty()
   @IsObject()
-  userSickness: UserSickness[];
+  userSicknesses: UserSickness[];
 }
 
 export class CreateSicknessRepositoryDTO {
   @IsUUID()
-  id: string;
+  userId: string;
 
   @IsNotEmpty()
   @IsObject()
-  sickness: UserSickness;
+  sicknesses: UserSickness;
 }

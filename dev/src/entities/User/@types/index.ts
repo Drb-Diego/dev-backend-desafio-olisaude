@@ -29,11 +29,31 @@ export class CreateUserDTO {
   @IsEnum(Gender)
   gender: Gender;
 
-  userSickness?: UserSickness[];
+  userSicknesses?: UserSickness[];
 }
 
-export class FindOneDTO {
+export class IdParamDTO {
   @IsUUID()
   @IsNotEmpty()
   id: string;
+}
+
+export class BodyEditUserDTO {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsDateString()
+  birthDate: Date;
+
+  @IsNotEmpty()
+  @IsEnum(Gender)
+  gender: Gender;
+}
+
+export class EditUserRepositoryDTO {
+  name: string;
+  gender: Gender;
+  birthDate: Date;
 }

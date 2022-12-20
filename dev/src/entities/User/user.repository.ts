@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { CreateUserDTO } from './@types';
+import { CreateUserDTO, EditUserRepositoryDTO } from './@types';
 
 import { PrismaService } from 'src/database';
 
@@ -34,5 +34,17 @@ export class UserRepository {
     });
 
     return userFinded;
+  }
+
+  async edit(
+    userId: string,
+    { name, gender, birthDate }: EditUserRepositoryDTO,
+  ) {
+    const userEdited = await this.prismaService.user.update({
+      where: { id: userId },
+      data: { name, gender, birthDate, updatedAt: new Date() },
+    });
+
+    return userEdited;
   }
 }

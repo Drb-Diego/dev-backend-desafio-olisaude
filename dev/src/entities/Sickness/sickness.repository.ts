@@ -6,12 +6,12 @@ import { PrismaService } from 'src/database';
 export class SicknessRepository {
   constructor(private readonly prismaClient: PrismaService) {}
 
-  async create({ id, sickness }: CreateSicknessRepositoryDTO) {
+  async create({ userId, sicknesses }: CreateSicknessRepositoryDTO) {
     const sicknessCreated = await this.prismaClient.sickness.create({
       data: {
-        userId: id,
-        name: sickness.name,
-        degree: sickness.degree,
+        userId,
+        name: sicknesses.name,
+        degree: sicknesses.degree,
       },
     });
 

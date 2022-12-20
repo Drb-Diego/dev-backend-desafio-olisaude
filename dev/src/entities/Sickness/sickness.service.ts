@@ -7,11 +7,11 @@ import { CreateSicknessDTO } from './@types';
 export class SicknessService {
   constructor(private readonly sicknessRepository: SicknessRepository) {}
 
-  async create({ user: { id }, userSickness }: CreateSicknessDTO) {
-    const sicknessPromise = userSickness.map(async (sickness) => {
+  async create({ user: { id }, userSicknesses }: CreateSicknessDTO) {
+    const sicknessPromise = userSicknesses.map(async (sickness) => {
       const sicknessCreated = await this.sicknessRepository.create({
-        id,
-        sickness,
+        userId: id,
+        sicknesses: sickness,
       });
 
       return { name: sicknessCreated.name, degree: sicknessCreated.degree };
