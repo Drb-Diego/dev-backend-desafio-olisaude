@@ -1,4 +1,10 @@
-import { IsDateString, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsNotEmpty,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 enum Gender {
   male = 'male',
@@ -24,4 +30,10 @@ export class CreateUserDTO {
   gender: Gender;
 
   userSickness?: UserSickness[];
+}
+
+export class FindOneDTO {
+  @IsUUID()
+  @IsNotEmpty()
+  id: string;
 }

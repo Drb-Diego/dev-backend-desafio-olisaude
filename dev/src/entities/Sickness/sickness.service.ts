@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 
 import { SicknessRepository } from './sickness.repository';
 import { CreateSicknessDTO } from './@types';
@@ -24,6 +24,8 @@ export class SicknessService {
 
   async findOne(userId: string) {
     const sicknessFinded = await this.sicknessRepository.findOne(userId);
+
+    if (!sicknessFinded) throw new HttpException('Sickness not found', 404);
 
     return sicknessFinded;
   }

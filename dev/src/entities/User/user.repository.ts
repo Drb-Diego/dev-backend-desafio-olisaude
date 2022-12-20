@@ -27,4 +27,12 @@ export class UserRepository {
 
     return usersFinded;
   }
+
+  async findOne(userId: string) {
+    const userFinded = await this.prismaService.user.findUnique({
+      where: { id: userId },
+    });
+
+    return userFinded;
+  }
 }

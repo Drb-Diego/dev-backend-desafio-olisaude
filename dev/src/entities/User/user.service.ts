@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 
 import { CreateUserDTO } from './@types';
 
@@ -63,5 +63,15 @@ export class UserService {
     const serializePromiseResolved = await Promise.all(serializePromise);
 
     return serializePromiseResolved;
+  }
+
+  async findOne(userId: string) {
+    const userFinded = await this.userRepository.findOne(userId);
+
+    if (!userFinded) throw new HttpException('User not found', 404);
+
+    const sicknessFinded = await this.sicknessService.findOne(userId);
+
+    return { user: userFinded, userSickness: sicknessFinded };
   }
 }

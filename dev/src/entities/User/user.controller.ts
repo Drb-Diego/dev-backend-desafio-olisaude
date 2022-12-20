@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
-import { CreateUserDTO } from './@types';
+import { CreateUserDTO, FindOneDTO } from './@types';
 
 import { UserService } from './user.service';
 
@@ -25,6 +25,13 @@ export class UserController {
   @Get('findMany')
   async findMany() {
     const usersFinded = await this.userService.findMany();
+
+    return usersFinded;
+  }
+
+  @Get('findOne/:id')
+  async findOne(@Param() { id: userId }: FindOneDTO) {
+    const usersFinded = await this.userService.findOne(userId);
 
     return usersFinded;
   }
