@@ -6,6 +6,7 @@ import { CreateSicknessDTO } from './@types';
 @Injectable()
 export class SicknessService {
   constructor(private readonly sicknessRepository: SicknessRepository) {}
+
   async create({ user: { id }, userSickness }: CreateSicknessDTO) {
     const sicknessPromise = userSickness.map(async (sickness) => {
       const sicknessCreated = await this.sicknessRepository.create({
@@ -19,5 +20,11 @@ export class SicknessService {
     const sicknessPromiseResolved = await Promise.all(sicknessPromise);
 
     return sicknessPromiseResolved;
+  }
+
+  async findOne(userId: string) {
+    const sicknessFinded = await this.sicknessRepository.findOne(userId);
+
+    return sicknessFinded;
   }
 }

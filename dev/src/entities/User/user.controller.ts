@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
 import { CreateUserDTO } from './@types';
 
@@ -20,5 +20,12 @@ export class UserController {
     });
 
     return userCreated;
+  }
+
+  @Get('findMany')
+  async findMany() {
+    const usersFinded = await this.userService.findMany();
+
+    return usersFinded;
   }
 }

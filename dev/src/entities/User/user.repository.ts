@@ -21,4 +21,10 @@ export class UserRepository {
 
     return userCreated;
   }
+
+  async findMany() {
+    const usersFinded = await this.prismaService.user.findMany();
+
+    return usersFinded;
+  }
 }

@@ -18,7 +18,7 @@ export class UserService {
     const userCreated = await this.userRepository.create({
       name,
       gender,
-      birthDate: new Date(birthDate),
+      birthDate,
       userSickness,
     });
 
@@ -45,5 +45,23 @@ export class UserService {
       createdAt: userCreated.createdAt,
       updatedAt: userCreated.updatedAt,
     };
+  }
+
+  async findMany() {
+    const usersFinded = await this.userRepository.findMany();
+
+    const serializePromise = usersFinded.map(async (user) => {
+      const sicknessFinded = await this.sicknessService.findOne(user.id);
+
+      if (sicknessFinded.length > 0) {
+        return { user, userSickness: sicknessFinded };
+      }
+
+      return { user };
+    });
+
+    const serializePromiseResolved = await Promise.all(serializePromise);
+
+    return serializePromiseResolved;
   }
 }

@@ -17,4 +17,12 @@ export class SicknessRepository {
 
     return sicknessCreated;
   }
+
+  async findOne(userId: string) {
+    const sicknessFinded = await this.prismaClient.sickness.findMany({
+      where: { userId },
+    });
+
+    return sicknessFinded;
+  }
 }
